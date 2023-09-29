@@ -55,14 +55,45 @@ public class Player {
         sortTilesColorFirst();
         tilePosition = findPositionOfTile(t);
 
-        // TODO: find the longest chain starting from tilePosition going left and right
-        int longestChainColorFirst = 0;
+        int longestChainColorFirst = 1;
+        
+        // For left side
+        while(playerTiles[tilePosition-1].getValue()==playerTiles[tilePosition].getValue()-1 && tilePosition !=0){
+            longestChainColorFirst++;
+            tilePosition--;
+        }
+        
+        // For right side
+        tilePosition = findPositionOfTile(t);
+        while(playerTiles[tilePosition+1].getValue()==playerTiles[tilePosition].getValue()+1 && tilePosition != 14){
+            longestChainColorFirst++;
+            tilePosition++;
+        }
 
         sortTilesValueFirst();
         tilePosition = findPositionOfTile(t);
         
-        // TODO: find the longest chain starting from tilePosition going left and right
-        int longestChainValueFirst = 0;
+
+        int longestChainValueFirst = 1;
+        int valOfTile = playerTiles[tilePosition].getValue();
+
+         // For left side
+        while(playerTiles[tilePosition-1].getValue()== valOfTile && tilePosition !=0 ){
+            if(playerTiles[tilePosition-1].color != playerTiles[tilePosition].color){
+                longestChainValueFirst++;
+            }
+            tilePosition --;
+        }
+        
+
+        //For right side
+        tilePosition = findPositionOfTile(t);
+        while(playerTiles[tilePosition+1].getValue()== valOfTile && tilePosition != 14){
+            if(playerTiles[tilePosition+1].color != playerTiles[tilePosition].color){
+                longestChainValueFirst++;
+            }
+            tilePosition ++;
+        }
 
 
         if(longestChainColorFirst > longestChainValueFirst) {
