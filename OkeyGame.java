@@ -42,7 +42,11 @@ public class OkeyGame {
      * it should return the toString method of the tile so that we can print what we picked
      */
     public String getLastDiscardedTile() {
-        return null;
+         if (lastDiscardedTile != null) {
+        return lastDiscardedTile.toString();
+    } else {
+        return "No tile has been discarded yet.";
+    }
     }
 
     /*
@@ -51,7 +55,9 @@ public class OkeyGame {
      * it should return the toString method of the tile so that we can print what we picked
      */
     public String getTopTile() {
-        return null;
+        Tile topTile = tiles[tiles.length-1];
+       tiles[tiles.length-1]= null; 
+       return topTile.toString();
     }
 
     /*
@@ -85,7 +91,14 @@ public class OkeyGame {
      * the current status. Print whether computer picks from tiles or discarded ones.
      */
     public void pickTileForComputer() {
-
+        Player currentPlayer = players[getCurrentPlayerIndex()];
+        int num = Math.random()*2;
+        if (num==0){
+            System.out.println(currentPlayer.getName() + " Picked a tile from top: " +getTopTile());
+        }
+        else{
+           System.out.println(currentPlayer.getName()+ " picked discarded tile: " + getLastDiscardedTile()); 
+        }
     }
 
     /*
@@ -97,7 +110,7 @@ public class OkeyGame {
      * known by other players
      */
     public void discardTileForComputer() {
-
+    
     }
 
     /*
