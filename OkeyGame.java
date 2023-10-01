@@ -110,7 +110,20 @@ public class OkeyGame {
      * known by other players
      */
     public void discardTileForComputer() {
-    
+     Player currentPlayer = players[getCurrentPlayerIndex()]; 
+        int [] longestChains = currentPlayer.calculateLongestChainPerTile(); 
+         int TileDiscardIndex = -1; 
+         int cx = 100; 
+        for ( int i =0; i<longestChains.length; i++){
+            if(longestChains[i]< cx){
+                cx = longestChains[i];
+                TileDiscardIndex = i; 
+            }
+            if(TileDiscardIndex != -1){
+                Tile DiscardedTile = currentPlayer.getAndRemoveTile(TileDiscardIndex);
+                System.out.println(currentPlayer.getName() + "discarded tile: " + DiscardedTile.toString());
+            }
+        }
     }
 
     /*
