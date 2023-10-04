@@ -33,22 +33,6 @@ public class Player {
         return chainLengths;
     }
 
-    /*
-     * TODO: finds and returns the longest chain of tiles that can be formed
-     * using the given tile. a chain of tiles is either consecutive numbers
-     * that have the same color or the same number with different colors
-     * some chain examples are as follows:
-     * 1B 2B 3B
-     * 5Y 5B 5R 5K
-     * 4Y 5Y 6Y 7Y 8Y
-     * You can use canFormChainWith method in Tile class to check if two tiles can make a chain
-     * based on color order and value order. Use sortTilesColorFirst() and sortTilesValueFirst()
-     * methods to sort the tiles of this player then find the position of the given tile t.
-     * check how many adjacent tiles there are starting from the tile poisition.
-     * Note that if you start a chain with matching colors it should continue with the same type of match
-     * and if you start a chain with matching values it should continue with the same type of match
-     * use the different values canFormChainWith method returns.
-     */
     public int findLongestChainOf(Tile t) {
         int tilePosition;
 
