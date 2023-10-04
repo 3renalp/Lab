@@ -46,11 +46,6 @@ public class OkeyGame {
     }
     }
 
-    /*
-     * TODO: get the top tile from tiles array for the current player
-     * that tile is no longer in the tiles array (this simulates picking up the top tile)
-     * it should return the toString method of the tile so that we can print what we picked
-     */
     public String getTopTile() {
         Tile topTile = tiles[tiles.length-1];
        tiles[tiles.length-1]= null; 
