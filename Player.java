@@ -6,7 +6,7 @@ public class Player {
     public Player(String name) {
         setName(name);
         playerTiles = new Tile[15]; // there are at most 15 tiles a player owns at any time
-        numberOfTiles = 0; // currently this player owns 0 tiles, will pick tiles at the beggining of the game
+        numberOfTiles = 14; // currently this player owns 0 tiles, will pick tiles at the beggining of the game
     }
 
     /*
@@ -42,14 +42,14 @@ public class Player {
         int longestChainColorFirst = 1;
         
         // For left side
-        while(playerTiles[tilePosition-1].getValue()==playerTiles[tilePosition].getValue()-1 && tilePosition !=0 && playerTiles[tilePosition-1].getColor()==playerTiles[tilePosition].getColor() ){
+        while(tilePosition !=0 && playerTiles[tilePosition-1].getValue()==playerTiles[tilePosition].getValue()-1 && playerTiles[tilePosition-1].getColor()==playerTiles[tilePosition].getColor() ){
             longestChainColorFirst++;
             tilePosition--;
         }
         
         // For right side
         tilePosition = findPositionOfTile(t);
-        while(playerTiles[tilePosition+1].getValue()==playerTiles[tilePosition].getValue()+1 && tilePosition != 14 && playerTiles[tilePosition+1].getColor()==playerTiles[tilePosition].getColor()){
+        while((tilePosition+1<numberOfTiles)&&(playerTiles[tilePosition+1].getValue()==playerTiles[tilePosition].getValue()+1 && playerTiles[tilePosition+1].getColor()==playerTiles[tilePosition].getColor())){
             longestChainColorFirst++;
             tilePosition++;
         }
@@ -62,7 +62,7 @@ public class Player {
         int valOfTile = playerTiles[tilePosition].getValue();
 
          // For left side
-        while(playerTiles[tilePosition-1].getValue()== valOfTile && tilePosition !=0 ){
+        while(tilePosition !=0 && playerTiles[tilePosition-1].getValue()== valOfTile){
             if(playerTiles[tilePosition-1].color != playerTiles[tilePosition].color){
                 longestChainValueFirst++;
             }
@@ -72,7 +72,7 @@ public class Player {
 
         //For right side
         tilePosition = findPositionOfTile(t);
-        while(playerTiles[tilePosition+1].getValue()== valOfTile && tilePosition != 14){
+        while((tilePosition+1<numberOfTiles)&&(playerTiles[tilePosition+1].getValue()== valOfTile)){
             if(playerTiles[tilePosition+1].color != playerTiles[tilePosition].color){
                 longestChainValueFirst++;
             }
@@ -90,8 +90,13 @@ public class Player {
 
     public Tile getAndRemoveTile(int index) {
         Tile t = playerTiles[index];
-        for(int i=index+1;i<numberOfTiles;i++)
-            playerTiles[i]=playerTiles[i-1];
+        Tile backup0 = playerTiles[numberOfTiles-1];
+        Tile backup1;
+        for(int i=numberOfTiles-2;i>=index;i--){
+            backup1=playerTiles[i];
+            playerTiles[i]=backup0;
+            backup0=backup1;
+        }
         numberOfTiles--;
         return t;
     }

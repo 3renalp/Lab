@@ -11,6 +11,7 @@ public class OkeyGame {
     Tile lastDiscardedTile;
 
     int currentPlayerIndex = 0;
+    int currentTile = 0;
 
     public OkeyGame() {
         players = new Player[4];
@@ -18,7 +19,6 @@ public class OkeyGame {
 
     public void createTiles() {
         tiles = new Tile[104];
-        int currentTile = 0;
 
         // two copies of each color-value combination, no jokers
         for (int i = 1; i <= 13; i++) {
@@ -32,28 +32,29 @@ public class OkeyGame {
     }
 
     public void distributeTilesToPlayers() {
-        int k = 0;
         for(int i = 0; i < 4; i++){
             for(int j = 0; j < 14; j++){
-                players[i].playerTiles[j] = tiles[k++];
+                players[i].playerTiles[j] = tiles[--currentTile];
                 
             }
         }
-        players[0].playerTiles[14] = tiles[k];
+        players[0].playerTiles[14] = tiles[--currentTile];
     }
 
     public String getLastDiscardedTile() {
-         if (lastDiscardedTile != null) {
-        return lastDiscardedTile.toString();
-    } else {
-        return "No tile has been discarded yet.";
-    }
+        if (lastDiscardedTile != null)  {
+            players[currentPlayerIndex].addTile(lastDiscardedTile);
+            return lastDiscardedTile.toString();
+        }
+        else 
+            return "No tile has been discarded yet.";
     }
 
     public String getTopTile() {
-        Tile topTile = tiles[tiles.length-1];
-       tiles[tiles.length-1]= null; 
-       return topTile.toString();
+        Tile topTile = tiles[--currentTile];
+        players[currentPlayerIndex].addTile(topTile);
+        tiles[currentTile]= null; 
+        return topTile.toString();
     }
 
 
@@ -63,19 +64,27 @@ public class OkeyGame {
         tilesArraylist.toArray(tiles);
     }
 
-    /*
-     * TODO: check if game still continues, should return true if current player
-     * finished the game. Use calculateLongestChainPerTile method to get the
-     * longest chains per tile.
-     * To win, you need one of the following cases to be true:
-     * - 8 tiles have length >= 4 and remaining six tiles have length >= 3 the last one can be of any length
-     * - 5 tiles have length >= 5 and remaining nine tiles have length >= 3 the last one can be of any length
-     * These are assuming we check for the win condition before discarding a tile
-     * The given cases do not cover all the winning hands based on the original
-     * game and for some rare cases it may be erroneous but it will be enough
-     * for this simplified version
-     */
     public boolean didGameFinish() {
+        int[] nums=players[currentPlayerIndex].calculateLongestChainPerTile();
+
+        //first case
+        int cnt0=0,cnt1=0;
+        for(int i=0;i<players[currentPlayerIndex].numberOfTiles;i++){
+            if(nums[i]>=4) cnt0++;
+            else if(nums[i]>=3) cnt1++;
+        }
+        if(cnt0>=8&&cnt1>=6) 
+            return true;
+
+        //second case
+        cnt0=0;cnt1=0;
+        for(int i=0;i<players[currentPlayerIndex].numberOfTiles;i++){
+            if(nums[i]>=5) cnt0++;
+            else if(nums[i]>=3) cnt1++;
+        }
+        if(cnt0>=5&&cnt1>=9) 
+            return true;
+
         return false;
     }
 
@@ -91,29 +100,25 @@ public class OkeyGame {
     }
 
     public void discardTileForComputer() {
-     Player currentPlayer = players[getCurrentPlayerIndex()]; 
+        Player currentPlayer = players[getCurrentPlayerIndex()]; 
         int [] longestChains = currentPlayer.calculateLongestChainPerTile(); 
-         int TileDiscardIndex = -1; 
-         int cx = 100; 
+        int TileDiscardIndex = -1; 
+        int cx = 100; 
         for ( int i =0; i<longestChains.length; i++){
             if(longestChains[i]< cx){
                 cx = longestChains[i];
                 TileDiscardIndex = i; 
             }
-            if(TileDiscardIndex != -1){
-                Tile DiscardedTile = currentPlayer.getAndRemoveTile(TileDiscardIndex);
-                System.out.println(currentPlayer.getName() + "discarded tile: " + DiscardedTile.toString());
-            }
+        }
+        if(TileDiscardIndex != -1){
+            Tile DiscardedTile = currentPlayer.getAndRemoveTile(TileDiscardIndex);
+            System.out.println(currentPlayer.getName() + "discarded tile: " + DiscardedTile.toString());
+            lastDiscardedTile=DiscardedTile;
         }
     }
 
-    /*
-     * TODO: discards the current player's tile at given index
-     * this should set lastDiscardedTile variable and remove that tile from
-     * that player's tiles
-     */
     public void discardTile(int tileIndex) {
-        
+        lastDiscardedTile = players[currentPlayerIndex].getAndRemoveTile(tileIndex);
     }
 
     public void currentPlayerSortTilesColorFirst() {

@@ -14,6 +14,8 @@ public class ApplicationMain {
         game.setPlayerName(2, "Jane");
         game.setPlayerName(3, "Ted");
 
+        game.players[0].numberOfTiles++;
+
         game.createTiles();
         game.shuffleTiles();
         game.distributeTilesToPlayers();
@@ -112,12 +114,12 @@ public class ApplicationMain {
                     System.out.print("Discard the tile in index: ");
                     playerChoice = sc.nextInt();
 
-                    while(playerChoice>=0&&playerChoice<=14){
+                    while(playerChoice<0||playerChoice>14){
                         System.out.print("Discard the tile in index: ");
                         playerChoice = sc.nextInt();
                     }
 
-                    game.discardTile(playerChoice);
+                    game.discardTile(--playerChoice);
                     game.passTurnToNextPlayer();
                 }
                 else{
