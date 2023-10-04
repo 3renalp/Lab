@@ -1,4 +1,5 @@
-package LABS.OkeyGame;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class OkeyGame {
 
@@ -53,9 +54,7 @@ public class OkeyGame {
        return topTile.toString();
     }
 
-    /*
-     * TODO: should randomly shuffle the tiles array before game starts
-     */
+
     public void shuffleTiles() {
         ArrayList<Tile> tilesArraylist = (ArrayList<Tile>) Arrays.asList(tiles);
         Collections.shuffle(tilesArraylist);
