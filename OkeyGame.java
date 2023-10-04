@@ -45,11 +45,6 @@ public class OkeyGame {
         players[0].playerTiles[14] = tiles[k];
     }
 
-    /*
-     * TODO: get the last discarded tile for the current player
-     * (this simulates picking up the tile discarded by the previous player)
-     * it should return the toString method of the tile so that we can print what we picked
-     */
     public String getLastDiscardedTile() {
          if (lastDiscardedTile != null) {
         return lastDiscardedTile.toString();
@@ -94,13 +89,6 @@ public class OkeyGame {
         return false;
     }
 
-    /*
-     * TODO: Pick a tile for the current computer player using one of the following:
-     * - picking from the tiles array using getTopTile()
-     * - picking from the lastDiscardedTile using getLastDiscardedTile()
-     * You may choose randomly or consider if the discarded tile is useful for
-     * the current status. Print whether computer picks from tiles or discarded ones.
-     */
     public void pickTileForComputer() {
         Player currentPlayer = players[getCurrentPlayerIndex()];
         int num = (int) (Math.random()*2);
@@ -112,14 +100,6 @@ public class OkeyGame {
         }
     }
 
-    /*
-     * TODO: Current computer player will discard the least useful tile.
-     * For this use the findLongestChainOf method in Player class to calculate
-     * the longest chain length per tile of this player,
-     * then choose the tile with the lowest chain length and discard it
-     * this method should print what tile is discarded since it should be
-     * known by other players
-     */
     public void discardTileForComputer() {
      Player currentPlayer = players[getCurrentPlayerIndex()]; 
         int [] longestChains = currentPlayer.calculateLongestChainPerTile(); 
