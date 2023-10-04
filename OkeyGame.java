@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Arrays;
 
 public class OkeyGame {
@@ -57,7 +58,7 @@ public class OkeyGame {
 
 
     public void shuffleTiles() {
-        ArrayList<Tile> tilesArraylist = (ArrayList<Tile>) Arrays.asList(tiles);
+        List<Tile> tilesArraylist = Arrays.asList(tiles);
         Collections.shuffle(tilesArraylist);
         tilesArraylist.toArray(tiles);
     }
