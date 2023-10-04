@@ -35,7 +35,14 @@ public class OkeyGame {
      * this method assumes the tiles are already sorted
      */
     public void distributeTilesToPlayers() {
-
+        int k = 0;
+        for(int i = 0; i < 4; i++){
+            for(int j = 0; j < 14; j++){
+                players[i].playerTiles[j] = tiles[k++];
+                
+            }
+        }
+        players[0].playerTiles[14] = tiles[k];
     }
 
     /*
@@ -66,7 +73,9 @@ public class OkeyGame {
      * TODO: should randomly shuffle the tiles array before game starts
      */
     public void shuffleTiles() {
-
+        ArrayList<Tile> tilesArraylist = (ArrayList<Tile>) Arrays.asList(tiles);
+        Collections.shuffle(tilesArraylist);
+        tilesArraylist.toArray(tiles);
     }
 
     /*
