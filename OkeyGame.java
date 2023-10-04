@@ -28,12 +28,6 @@ public class OkeyGame {
         }
     }
 
-    /*
-     * TODO: distributes the starting tiles to the players
-     * player at index 0 gets 15 tiles and starts first
-     * other players get 14 tiles
-     * this method assumes the tiles are already sorted
-     */
     public void distributeTilesToPlayers() {
         int k = 0;
         for(int i = 0; i < 4; i++){
