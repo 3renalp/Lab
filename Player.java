@@ -58,14 +58,14 @@ public class Player {
         int longestChainColorFirst = 1;
         
         // For left side
-        while(playerTiles[tilePosition-1].getValue()==playerTiles[tilePosition].getValue()-1 && tilePosition !=0){
+        while(playerTiles[tilePosition-1].getValue()==playerTiles[tilePosition].getValue()-1 && tilePosition !=0 && playerTiles[tilePosition-1].getColor()==playerTiles[tilePosition].getColor() ){
             longestChainColorFirst++;
             tilePosition--;
         }
         
         // For right side
         tilePosition = findPositionOfTile(t);
-        while(playerTiles[tilePosition+1].getValue()==playerTiles[tilePosition].getValue()+1 && tilePosition != 14){
+        while(playerTiles[tilePosition+1].getValue()==playerTiles[tilePosition].getValue()+1 && tilePosition != 14 && playerTiles[tilePosition+1].getColor()==playerTiles[tilePosition].getColor()){
             longestChainColorFirst++;
             tilePosition++;
         }
