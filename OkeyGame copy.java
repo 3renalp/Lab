@@ -1,3 +1,5 @@
+package LABS.OkeyGame;
+
 public class OkeyGame {
 
     Player[] players;
@@ -92,7 +94,7 @@ public class OkeyGame {
      */
     public void pickTileForComputer() {
         Player currentPlayer = players[getCurrentPlayerIndex()];
-        int num = Math.random()*2;
+        int num = (int) (Math.random()*2);
         if (num==0){
             System.out.println(currentPlayer.getName() + " Picked a tile from top: " +getTopTile());
         }
